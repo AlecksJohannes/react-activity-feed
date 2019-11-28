@@ -29,6 +29,10 @@ import _debounce from 'lodash/debounce';
 import _difference from 'lodash/difference';
 import _includes from 'lodash/includes';
 import anchorme from 'anchorme';
+import { autoSize } from '../utils';
+import upload from '../images/img-stack.svg'
+import attach from '../images/attach.svg'
+import poll from '../images/menu-4.svg'
 
 import { StreamApp } from '../Context';
 import {
@@ -604,34 +608,34 @@ class StatusUpdateFormInner extends React.Component<PropsInner, State> {
     const activeOg = this._activeOg();
     const availableOg = this._availableOg();
     const userData = this.props.user.data || {};
+    const { text } =  this.state
+
     return (
       <Panel>
         <form onSubmit={this.onSubmitForm}>
           <ImageDropzone handleFiles={this._uploadNewFiles}>
-            <PanelHeading>{this.props.Header}</PanelHeading>
+            {/* <PanelHeading>{this.props.Header}</PanelHeading> */}
             <PanelContent>
-              <div style={{ display: 'flex' }}>
-                <React.Fragment>
-                  {userData.profileImage && (
-                    <div style={{ marginRight: '16px' }}>
-                      <Avatar
-                        image={
-                          // $FlowFixMe
-                          userData.profileImage ||
-                          'https://placehold.it/100x100'
-                        }
-                        size={50}
-                        circle
-                      />
-                    </div>
-                  )}
-                </React.Fragment>
+              <div className="d-flex w-100">
+                <Avatar
+                  className="new-post-head-avt"
+                  image={
+                    // $FlowFixMe
+                    userData.profileImage ||
+                    'https://placehold.it/100x100'
+                  }
+                  size={50}
+                  circle
+                />
                 <Textarea
+                  rows={1}
+                  className="new-post-center-post border-0"
                   innerRef={this.textInputRef}
-                  placeholder="Type your post... "
+                  placeholder="Create new something"
                   value={this.state.text}
                   onChange={this._onChange}
                   trigger={this.props.trigger}
+                  onInput={autoSize}
                   onPaste={async (event) => {
                     const { items } = event.clipboardData;
                     if (!dataTransferItemsHaveFiles(items)) {
@@ -763,30 +767,45 @@ class StatusUpdateFormInner extends React.Component<PropsInner, State> {
               )}
             </PanelContent>
             <PanelFooter>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ marginRight: '32px', display: 'inline-block' }}>
-                    <ImageUploadButton
-                      handleFiles={this._uploadNewFiles}
-                      multiple
-                    />
-                  </div>
-                  <div style={{ marginRight: '32px', display: 'inline-block' }}>
-                    <FileUploadButton
-                      handleFiles={this._uploadNewFiles}
-                      multiple
-                    />
-                  </div>
-                  <EmojiPicker onSelect={this._onSelectEmoji} />
+              <div style={{ display: 'flex' }} className="new-post-bottom">
+                <ul className="d-flex pl-0 mb-0">
+                    <li>
+                      <ImageUploadButton
+                        handleFiles={this._uploadNewFiles}
+                        multiple>
+                          <div className="d-flex align-items-center">
+                            <img src={upload} alt="" className="mr-2"/>
+                            <span className="new-post-bottom-title text-left">
+                              Add Image
+                            </span>
+                          </div>
+                      </ImageUploadButton>
+                    </li>
+                    <li>
+                      <FileUploadButton
+                        handleFiles={this._uploadNewFiles}
+                        multiple
+                      >
+                        <div className="d-flex align-items-center">
+                          <img src={upload} alt="" className="mr-2"/>
+                          <span className="new-post-bottom-title text-left">
+                            Upload File
+                          </span>
+                        </div>
+                      </FileUploadButton>
+                    </li>
+                  {/* <EmojiPicker onSelect={this._onSelectEmoji} /> */}
                   {this.props.FooterItem}
-                </div>
+                </ul>
                 <Button
                   type="submit"
                   buttonStyle="primary"
                   loading={this.state.submitting}
                   disabled={!this._canSubmit()}
+                  className="post-create-button btn-fill"
+                  onClick={() => this.props.handleCreateFeed(text)}
                 >
-                  Post
+                  CREATE POST
                 </Button>
               </div>
             </PanelFooter>

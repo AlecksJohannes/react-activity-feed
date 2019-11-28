@@ -21,7 +21,7 @@ export default class Panel extends React.Component<Props> {
 
   render() {
     return (
-      <div className={`raf-panel raf-panel--${this.props.panelStyle}`}>
+      <div className={`new-post ${this.props.panelStyle}`}>
         {this.props.children}
       </div>
     );

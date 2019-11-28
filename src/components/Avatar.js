@@ -17,11 +17,11 @@ export type Props = {|
  */
 export default class Avatar extends React.PureComponent<Props> {
   render() {
-    const { size, image, alt, rounded, circle } = this.props;
+    const { size, image, alt, rounded, circle, className } = this.props;
     return (
       <React.Fragment>
         <img
-          className="avatar d-block mr-2"
+          className={`${className} avatar mr-2`}
           onClick={this.props.onClick}
           src={image ? image : placeholder}
           alt={alt || ''}

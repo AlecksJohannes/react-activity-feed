@@ -25,10 +25,10 @@ export default class Button extends React.Component<Props> {
   };
 
   render() {
-    const { children, buttonStyle, hidden } = this.props;
+    const { children, buttonStyle, hidden, className } = this.props;
     return (
       <button
-        className={`d-flex align-items-center ${hidden ? 'd-none' : ''}`}
+        className={`${className} ${hidden ? 'd-none' : ''}`}
         onClick={this.props.onClick}
         onKeyPress={this.props.onKeyPress}
         type={this.props.type}

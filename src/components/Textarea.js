@@ -40,7 +40,7 @@ export default class Textarea extends React.Component<Props> {
     trigger: {},
   };
   render() {
-    const { innerRef, trigger } = this.props;
+    const { innerRef, trigger, className } = this.props;
     return (
       <ReactTextareaAutocomplete
         loadingComponent={LoadingIndicator}
@@ -71,7 +71,7 @@ export default class Textarea extends React.Component<Props> {
         }
         rows={this.props.rows}
         maxLength={this.props.maxLength}
-        className="w-100"
+        className={`${className} w-100`}
         containerClassName="w-100"
         dropdownClassName="raf-emojisearch"
         listClassName="raf-emojisearch__list"
@@ -82,6 +82,7 @@ export default class Textarea extends React.Component<Props> {
         onPaste={this.props.onPaste}
         onInput={this.props.onInput}
         value={this.props.value}
+        spellCheck={false}
       />
     );
   }
